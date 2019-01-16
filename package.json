@@ -1,0 +1,39 @@
+{
+  "name": "@moedelo/karma-config",
+  "version": "2.1.0",
+  "readme": "original: https://github.com/Ineigo/karma-es6-webpack-config.git",
+  "description": "Готовая конфигурация для тестирования приложений",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "babel-preset-airbnb": "^2.4.0",
+    "chai": "^4.1.0",
+    "karma": "^1.7.0",
+    "karma-babel-preprocessor": "^7.0.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.3",
+    "karma-requirejs": "1.1.0",
+    "karma-sinon": "1.0.5",
+    "karma-sourcemap-loader": "0.3.7",
+    "karma-teamcity-reporter": "1.0.1",
+    "karma-webpack": "^2.0.4",
+    "merge": "1.2.0",
+    "mocha": "^4.0.0",
+    "null-loader": "*",
+    "react-test-renderer": "^16.0.0",
+    "requirejs": "^2.3.2",
+    "sinon": "^4.0.1",
+    "enzyme": "^3.1.0",
+    "expect": "^21.2.0",
+    "expect-enzyme": "^1.1.1",
+    "enzyme-adapter-react-16": "^1.0.1"
+  },
+  "peerDependencies": {
+    "@moedelo/webpack2-build": "*"
+  }
+}
