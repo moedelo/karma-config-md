@@ -1,5 +1,6 @@
 /*global require*/
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = function(config) {
     return {
@@ -64,7 +65,12 @@ module.exports = function(config) {
                 alias: {
                     mdEnzyme: path.resolve(__dirname, './mdEnzyme.js')
                 }
-            }
+            },
+            plugins: [
+                new webpack.DefinePlugin({
+                    IS_SERVER: JSON.stringify(false),
+                })
+            ]
         },
         webpackMiddleware: {
             noInfo: true,
