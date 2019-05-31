@@ -1,5 +1,4 @@
 yarn.lock
-karma.conf.js
 *.test.js
 .eslintrc
 .git
