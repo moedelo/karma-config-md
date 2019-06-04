@@ -6,7 +6,7 @@ module.exports = function(config) {
     return {
         files: [
             'node_modules/babel-polyfill/dist/polyfill.min.js',
-            //'node_modules/@moedelo/karma-config/test-setup.js',
+            'node_modules/@moedelo/karma-config/test-setup.js',
             '**/*.test.js'
         ],
 
