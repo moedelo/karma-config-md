@@ -1,7 +1,11 @@
 /*global require*/
+const fs = require(`fs`);
 const path = require('path');
 const webstaticDir = '../../../src/webStatic';
 const webpack = require('webpack');
+
+const appDirectory = fs.realpathSync(process.cwd());
+const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 module.exports = function(config) {
     return {
@@ -66,6 +70,12 @@ module.exports = function(config) {
                     }
                 ],
 
+            },
+            resolveLoader: {
+                modules: [
+                    path.resolve(__dirname, `./node_modules`),
+                    resolveApp(`./node_modules`)
+                ],
             },
             resolve: {
                 alias: {
