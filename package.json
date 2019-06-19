@@ -33,6 +33,6 @@
     "enzyme-adapter-react-16": "^1.0.1"
   },
   "peerDependencies": {
-    "@moedelo/webpack2-build": "*"
+    "@moedelo/webpack2-build": "4.2.0"
   }
 }
