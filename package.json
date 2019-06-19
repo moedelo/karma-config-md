@@ -1,6 +1,6 @@
 {
   "name": "@moedelo/karma-config",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "readme": "original: https://github.com/Ineigo/karma-es6-webpack-config.git",
   "description": "Готовая конфигурация для тестирования приложений",
   "main": "index.js",
