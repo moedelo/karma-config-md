@@ -1,17 +1,18 @@
 /*global require*/
-const fs = require(`fs`);
 const path = require('path');
-const webstaticDir = '../../../src/webStatic';
+const webstaticDir = './src/webStatic';
 const webpack = require('webpack');
+const { resolveApp, resolvePackage } = require(`./pathResolveHelper`);
 
-const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+const {
+    NODE_ENV = `development`
+} = process.env;
 
 module.exports = function(config) {
     return {
         files: [
             'node_modules/babel-polyfill/dist/polyfill.min.js',
-            path.resolve(__dirname, './test-setup.js'),
+            resolvePackage('@moedelo/karma-config/test-setup.js'),
             '**/*.test.js'
         ],
 
@@ -29,23 +30,36 @@ module.exports = function(config) {
         reporters: ['mocha'],
 
         webpack: {
+            mode: NODE_ENV,
             module: {
                 rules: [
                     {
                         test: /\.js$/,
-                        loader: 'babel-loader',
                         include: [
-                            path.resolve(__dirname, '../../@moedelo'),
-                            path.resolve(__dirname, webstaticDir),
+                            resolvePackage('@moedelo'),
+                            resolveApp(webstaticDir)
                         ],
-                        query: {
-                            presets: [
-                                'react',
-                                ['es2015', { "modules": false }],
-                                'stage-0',
-                                'airbnb'
-                            ],
-                            plugins: ["transform-decorators-legacy", "transform-class-properties"]
+                        use: {
+                            loader: resolvePackage(`babel-loader`),
+                            query: {
+                                presets: [
+                                    resolvePackage(`@babel/preset-react`),
+                                    [resolvePackage(`@babel/preset-env`), {
+                                        modules: false,
+                                        targets: {
+                                            esmodules: false
+                                        }
+                                    }],
+                                    resolvePackage(`@babel/preset-flow`)
+                                ],
+                                plugins: [
+                                    [resolvePackage(`@babel/plugin-proposal-decorators`), { legacy: true }],
+                                    [resolvePackage(`@babel/plugin-proposal-class-properties`), { loose: true }],
+                                    resolvePackage(`@babel/plugin-proposal-export-default-from`),
+                                    resolvePackage(`@babel/plugin-syntax-dynamic-import`),
+                                    resolvePackage(`@babel/plugin-proposal-optional-chaining`)
+                                ]
+                            }
                         }
                     },
                     { test: /\.json$/, loader: 'json-loader' },
@@ -68,16 +82,20 @@ module.exports = function(config) {
                             classPrefix: true
                         }
                     }
-                ],
+                ]
 
             },
             resolveLoader: {
                 modules: [
                     path.resolve(__dirname, `./node_modules`),
                     resolveApp(`./node_modules`)
-                ],
+                ]
             },
             resolve: {
+                modules: [
+                    path.resolve(__dirname, `./node_modules`),
+                    resolveApp(`./node_modules`)
+                ],
                 alias: {
                     mdEnzyme: path.resolve(__dirname, './mdEnzyme.js')
                 }
@@ -89,7 +107,7 @@ module.exports = function(config) {
             ]
         },
         webpackMiddleware: {
-            noInfo: true,
+            noInfo: true
         },
         plugins: [
             require('karma-teamcity-reporter'),
@@ -102,5 +120,5 @@ module.exports = function(config) {
         ],
 
         browsers: ['ChromeHeadless']
-    }
+    };
 };
