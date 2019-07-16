@@ -62,7 +62,11 @@ module.exports = function(config) {
                             }
                         }
                     },
-                    { test: /\.json$/, loader: 'json-loader' },
+                    {
+                        test: /\.json$/,
+                        exclude: /.*node_modules((?!@moedelo).)*$/,
+                        loader: "json-loader"
+                    },
                     { test: /\.less$/, loader: 'null-loader' },
                     { test: /\.css$/, loader: 'null-loader' },
                     { test: /\.(jpe?g|png|gif)|(?!\.m)(?!\.i)..\.svg$/i, loader: 'null-loader' },
